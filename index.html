@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anastasiia Pushkar — Brand Identity & Graphic Designer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gruppo&family=Manrope:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* --- DESIGN SYSTEM & CONFIGURATION --- */
+      :root {
+        --bg-primary: #f8f5f1;
+        --bg-secondary: #f3eee8;
+        --accent-burgundy: #5b1e2d;
+        --accent-pink: #d8b8be;
+        --text-main: #1a1a1a;
+        --border-subtle: rgba(26, 26, 26, 0.08);
+
+        --font-editorial: "Gruppo", cursive;
+        --font-sans: "Manrope", sans-serif;
+
+        --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        --transition-slow: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      /* --- BASE STYLES --- */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        background-color: var(--bg-primary);
+        color: var(--text-main);
+        font-family: var(--font-sans);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      body {
+        overflow-x: hidden;
+      }
+
+      /* --- TYPOGRAPHY HIERARCHY --- */
+      h1,
+      h2,
+      h3,
+      .editorial-title {
+        font-family: var(--font-editorial);
+        font-weight: 400;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+      }
+
+      p {
+        font-size: clamp(16px, 1.1vw, 18px);
+        line-height: 1.7;
+        font-weight: 300;
+        color: rgba(26, 26, 26, 0.85);
+      }
+
+      .micro-label {
+        font-size: clamp(11px, 0.8vw, 13px);
+        text-transform: uppercase;
+        letter-spacing: 0.25em;
+        font-weight: 500;
+        color: var(--accent-burgundy);
+      }
+
+      /* --- STRUCTURAL LAYOUTS --- */
+      .container {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0 4rem;
+      }
+
+      section {
+        padding: 10rem 0;
+        border-bottom: 1px solid var(--border-subtle);
+      }
+
+      .divider {
+        width: 100%;
+        height: 1px;
+        background-color: var(--border-subtle);
+        margin: 4rem 0;
+      }
+
+      /* --- CORE INTERACTION ELEMENT --- */
+      .btn-premium {
+        display: inline-flex;
+        align-items: center;
+        font-family: var(--font-sans);
+        font-size: 13px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: var(--text-main);
+        padding: 1rem 2.5rem;
+        border: 1px solid var(--text-main);
+        background: transparent;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: var(--transition-smooth);
+      }
+
+      .btn-premium::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--accent-burgundy);
+        transform: translateY(100%);
+        transition: var(--transition-smooth);
+        z-index: -1;
+      }
+
+      .btn-premium:hover {
+        color: var(--bg-primary);
+        border-color: var(--accent-burgundy);
+      }
+
+      .btn-premium:hover::before {
+        transform: translateY(0);
+      }
+
+      /* --- ANIMATION SYSTEM (SCROLL REVEAL) --- */
+      .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: var(--transition-slow);
+      }
+
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* --- NAVIGATION --- */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        transition: var(--transition-smooth);
+        padding: 2.5rem 4rem;
+      }
+
+      header.scrolled {
+        padding: 1.5rem 4rem;
+        background: rgba(248, 245, 241, 0.85);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border-subtle);
+      }
+
+      .nav-container {
+        max-width: 1440px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-family: var(--font-editorial);
+        font-size: 1.25rem;
+        letter-spacing: 0.15em;
+        text-decoration: none;
+        color: var(--text-main);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 3.5rem;
+        list-style: none;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text-main);
+        font-size: 13px;
+        letter-spacing: 0.15em;
+        transition: var(--transition-smooth);
+        position: relative;
+        padding-bottom: 4px;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background-color: var(--accent-burgundy);
+        transition: var(--transition-smooth);
+      }
+
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      /* Mobile Menu Trigger */
+      .burger {
+        display: none;
+        cursor: pointer;
+        background: none;
+        border: none;
+      }
+
+      .burger div {
+        width: 25px;
+        height: 1px;
+        background-color: var(--text-main);
+        margin: 6px;
+        transition: var(--transition-smooth);
+      }
+
+      /* --- HERO SECTION --- */
+      #hero {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        background-color: var(--bg-primary);
+        padding-top: 100px;
+      }
+
+      .hero-layout {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        align-items: center;
+        width: 100%;
+      }
+
+      .hero-title {
+        font-size: clamp(52px, 7vw, 110px);
+        margin-bottom: 2rem;
+      }
+
+      .hero-subtitle {
+        margin-top: 1rem;
+        display: block;
+        color: var(--accent-burgundy);
+      }
+
+      .hero-right {
+        padding-left: 4rem;
+        border-left: 1px solid var(--border-subtle);
+      }
+
+      .hero-statement {
+        font-size: clamp(20px, 1.8vw, 28px);
+        font-family: var(--font-sans);
+        font-weight: 300;
+        line-height: 1.5;
+        margin-bottom: 3rem;
+      }
+
+      .scroll-indicator {
+        position: absolute;
+        bottom: 3rem;
+        left: 4rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .scroll-line {
+        width: 40px;
+        height: 1px;
+        background-color: var(--text-main);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .scroll-line::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--accent-pink);
+        animation: dynamicLine 2s infinite ease-in-out;
+      }
+
+      @keyframes dynamicLine {
+        0% {
+          transform: scaleX(0);
+          transform-origin: left;
+        }
+        50% {
+          transform: scaleX(1);
+          transform-origin: left;
+        }
+        51% {
+          transform: scaleX(1);
+          transform-origin: right;
+        }
+        100% {
+          transform: scaleX(0);
+          transform-origin: right;
+        }
+      }
+
+      /* --- ABOUT SECTION --- */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 6rem;
+        align-items: center;
+      }
+
+      .portrait-frame {
+        background-color: var(--bg-secondary);
+        padding: 1.5rem;
+        border: 1px solid var(--border-subtle);
+        position: relative;
+      }
+
+      .portrait-frame img {
+        width: 100%;
+        height: 600px;
+        object-fit: cover;
+        filter: grayscale(100%) contrast(105%);
+        transition: var(--transition-slow);
+      }
+
+      .portrait-frame:hover img {
+        filter: grayscale(0%) contrast(100%);
+      }
+
+      .specs-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+        margin: 3rem 0;
+      }
+
+      .spec-item h4 {
+        font-family: var(--font-sans);
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+      }
+
+      .stats-row {
+        display: flex;
+        gap: 4rem;
+        margin-top: 4rem;
+      }
+
+      .stat-box .stat-num {
+        font-family: var(--font-editorial);
+        font-size: clamp(36px, 3vw, 48px);
+        color: var(--accent-burgundy);
+        display: block;
+      }
+
+      /* --- SELECTED WORK (GRID SYSTEM) --- */
+      .section-header {
+        margin-bottom: 6rem;
+      }
+
+      .section-title {
+        font-size: clamp(38px, 4vw, 64px);
+        margin-bottom: 1rem;
+      }
+
+      .works-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4rem;
+      }
+
+      /* Asymmetric rhythm arrangement */
+      .work-card:nth-child(even) {
+        margin-top: 6rem;
+      }
+
+      .work-img-container {
+        width: 100%;
+        aspect-ratio: 4/5;
+        overflow: hidden;
+        background-color: var(--bg-secondary);
+        border: 1px solid var(--border-subtle);
+        cursor: pointer;
+      }
+
+      .work-img-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition-slow);
+      }
+
+      .work-card:hover .work-img-container img {
+        transform: scale(1.04);
+      }
+
+      .work-meta {
+        margin-top: 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+
+      .work-title {
+        font-family: var(--font-editorial);
+        font-size: 1.5rem;
+        text-decoration: none;
+        color: var(--text-main);
+        transition: var(--transition-smooth);
+      }
+
+      .work-card:hover .work-title {
+        color: var(--accent-burgundy);
+        transform: translateX(5px);
+      }
+
+      /* --- MODAL DIALOG PREVIEW SYSTEM --- */
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(248, 245, 241, 0.98);
+        z-index: 2000;
+        opacity: 0;
+        pointer-events: none;
+        overflow-y: auto;
+        transition: var(--transition-smooth);
+      }
+
+      .modal.active {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .modal-close {
+        position: fixed;
+        top: 2.5rem;
+        right: 4rem;
+        background: none;
+        border: none;
+        font-family: var(--font-sans);
+        font-size: 13px;
+        letter-spacing: 0.2em;
+        cursor: pointer;
+        text-transform: uppercase;
+        z-index: 2100;
+      }
+
+      .modal-content {
+        max-width: 1100px;
+        margin: 8rem auto;
+        padding: 0 2rem;
+      }
+
+      .modal-hero-img {
+        width: 100%;
+        aspect-ratio: 16/9;
+        object-fit: cover;
+        margin-bottom: 4rem;
+        border: 1px solid var(--border-subtle);
+      }
+
+      .modal-layout {
+        display: grid;
+        grid-template-columns: 1.3fr 0.7fr;
+        gap: 4rem;
+        margin-bottom: 4rem;
+      }
+
+      .modal-sidebar div {
+        margin-bottom: 2rem;
+      }
+
+      .modal-gallery img {
+        width: 100%;
+        margin-bottom: 2rem;
+        border: 1px solid var(--border-subtle);
+      }
+
+      /* --- EDITORIAL TESTIMONIALS & SUBMISSION ENGINE --- */
+      .testimonials-layout {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 4rem;
+      }
+
+      .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+      }
+
+      .testimonial-card {
+        background: var(--bg-secondary);
+        padding: 3rem;
+        border: 1px solid var(--border-subtle);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .quote-text {
+        font-family: var(--font-sans);
+        font-style: italic;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+        color: rgba(26, 26, 26, 0.9);
+      }
+
+      .client-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid var(--border-subtle);
+        padding-top: 1.5rem;
+      }
+
+      .stars {
+        color: var(--accent-burgundy);
+        letter-spacing: 2px;
+      }
+
+      /* Dynamic Engine Form Construction */
+      .submission-wrapper {
+        margin-top: 6rem;
+        background-color: var(--bg-secondary);
+        padding: 4rem;
+        border: 1px solid var(--border-subtle);
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .form-group.full-width {
+        grid-column: span 2;
+      }
+
+      label {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 500;
+      }
+
+      input,
+      textarea,
+      select {
+        background: var(--bg-primary);
+        border: 1px solid var(--border-subtle);
+        padding: 1rem;
+        font-family: var(--font-sans);
+        font-size: 15px;
+        color: var(--text-main);
+        transition: var(--transition-smooth);
+      }
+
+      input:focus,
+      textarea:focus,
+      select:focus {
+        outline: none;
+        border-color: var(--accent-burgundy);
+      }
+
+      /* --- CONTACT SECTION --- */
+      .contact-layout {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 6rem;
+      }
+
+      .contact-info-panel {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .contact-title {
+        font-size: clamp(40px, 4.5vw, 72px);
+        margin-bottom: 3rem;
+      }
+
+      .channels-list {
+        list-style: none;
+        margin-top: 2rem;
+      }
+
+      .channels-list mobile-label {
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      .channels-list li {
+        margin-bottom: 1.5rem;
+      }
+
+      .channels-list a {
+        font-family: var(--font-editorial);
+        font-size: 1.5rem;
+        color: var(--text-main);
+        text-decoration: none;
+        transition: var(--transition-smooth);
+      }
+
+      .channels-list a:hover {
+        color: var(--accent-burgundy);
+        padding-left: 8px;
+      }
+
+      /* --- FOOTER --- */
+      footer {
+        padding: 3rem 0;
+        background-color: var(--bg-primary);
+      }
+
+      .footer-container {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0 4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+        color: rgba(26, 26, 26, 0.6);
+      }
+
+      /* --- RESPONSIVE MEDIA QUERIES --- */
+      @media (max-width: 1024px) {
+        .container,
+        header,
+        header.scrolled,
+        .footer-container {
+          padding-left: 2rem;
+          padding-right: 2rem;
+        }
+        .hero-layout,
+        .about-grid,
+        .contact-layout {
+          grid-template-columns: 1fr;
+          gap: 4rem;
+        }
+        .hero-right {
+          padding-left: 0;
+          border-left: none;
+          border-top: 1px solid var(--border-subtle);
+          padding-top: 3rem;
+        }
+        .works-grid,
+        .testimonials-grid {
+          grid-template-columns: 1fr;
+          gap: 3rem;
+        }
+        .work-card:nth-child(even) {
+          margin-top: 0;
+        }
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+        .form-group.full-width {
+          grid-column: span 1;
+        }
+      }
+
+      @media (max-width: 768px) {
+        header {
+          padding: 1.5rem 2rem;
+        }
+        .burger {
+          display: block;
+          z-index: 1001;
+        }
+        .nav-links {
+          position: fixed;
+          right: 0;
+          top: 0;
+          height: 100vh;
+          width: 100%;
+          background-color: var(--bg-primary);
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 3rem;
+          transform: translateX(100%);
+          transition: var(--transition-smooth);
+        }
+        .nav-links.nav-active {
+          transform: translateX(0);
+        }
+        .portrait-frame img {
+          height: 400px;
+        }
+        .submission-wrapper {
+          padding: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header id="main-header">
+      <div class="nav-container">
+        <a href="#" class="logo">ANASTASIIA PUSHKAR</a>
+        <button class="burger" aria-label="Toggle Navigation">
+          <div class="line1"></div>
+          <div class="line2"></div>
+        </button>
+        <ul class="nav-links">
+          <li><a href="#about">ABOUT</a></li>
+          <li><a href="#work">PROJECTS</a></li>
+          <li><a href="#testimonials">TESTIMONIALS</a></li>
+          <li><a href="#contact">CONTACT</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <section id="hero">
+      <div class="container hero-layout">
+        <div class="hero-left">
+          <span class="micro-label reveal"
+            >Brand Identity & Graphic Designer</span
+          >
+          <h1 class="hero-title reveal">ANASTASIIA<br />PUSHKAR</h1>
+        </div>
+        <div class="hero-right reveal">
+          <p class="hero-statement">
+            “I create thoughtful visual identities that help brands feel
+            distinctive, memorable, and authentic.”
+          </p>
+          <a href="#work" class="btn-premium">VIEW PROJECTS</a>
+        </div>
+      </div>
+      <div class="scroll-indicator">
+        <div class="scroll-line"></div>
+        <span class="micro-label" style="font-size: 10px">SCROLL DISCOVER</span>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container about-grid">
+        <div class="portrait-frame reveal">
+          <img src="img/anastasiia.jpg" alt="Anastasiia Pushkar" />
+        </div>
+        <div class="about-right reveal">
+          <span class="micro-label">THE STUDIO PHILOSOPHY</span>
+          <h2 class="section-title" style="margin-top: 1rem">
+            Quiet confidence through structural design.
+          </h2>
+          <p style="margin-bottom: 2rem">
+            Operating at the intersection of high-end editorial clarity and
+            contemporary visual systems, I partner with global visionaries to
+            execute elite brand architectures that command long-form industry
+            authority.
+          </p>
+
+          <div class="specs-grid">
+            <div class="spec-item">
+              <h4>Brand Identity</h4>
+              <p style="font-size: 14px">
+                Cohesive guidelines, complete visual asset toolkits, execution
+                rules.
+              </p>
+            </div>
+            <div class="spec-item">
+              <h4>Logo Design</h4>
+              <p style="font-size: 14px">
+                Architectural glyph markmaking, semantic customized typography.
+              </p>
+            </div>
+            <div class="spec-item">
+              <h4>Visual Systems</h4>
+              <p style="font-size: 14px">
+                Scalable systems tailored specifically for high-growth modern
+                networks.
+              </p>
+            </div>
+            <div class="spec-item">
+              <h4>Packaging Design</h4>
+              <p style="font-size: 14px">
+                Tactile material engineering, luxury editorial print placement
+                wrappers.
+              </p>
+            </div>
+          </div>
+
+          <div class="stats-row">
+            <div class="stat-box">
+              <span class="stat-num">4+</span
+              ><span class="micro-label">Years Exp</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-num">50+</span
+              ><span class="micro-label">Projects</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-num">Global</span
+              ><span class="micro-label">Clients</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="work">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="micro-label">CURATED COLLECTION</span>
+          <h2 class="section-title">SELECTED WORK</h2>
+          <p>A curated collection of visual identities and branding systems.</p>
+        </div>
+
+        <div class="works-grid">
+          <div class="work-card reveal" data-project="0">
+            <div class="work-img-container">
+              <img
+                src="https://images.unsplash.com/photo-1509395062183-67c5ad6faff9?auto=format&fit=crop&w=1000&q=80"
+                alt="The Inner Fuel Branding Mockup"
+              />
+            </div>
+            <div class="work-meta">
+              <div>
+                <h3 class="work-title">The Inner Fuel</h3>
+                <p style="font-size: 14px; color: rgba(26, 26, 26, 0.6)">
+                  Visual Identity & Strategy
+                </p>
+              </div>
+              <span class="micro-label">2025</span>
+            </div>
+          </div>
+          <div class="work-card reveal" data-project="1">
+            <div class="work-img-container">
+              <img
+                src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1000&q=80"
+                alt="Lumo Visual Architecture"
+              />
+            </div>
+            <div class="work-meta">
+              <div>
+                <h3 class="work-title">Lumo</h3>
+                <p style="font-size: 14px; color: rgba(26, 26, 26, 0.6)">
+                  Digital Ecosystem Design
+                </p>
+              </div>
+              <span class="micro-label">2026</span>
+            </div>
+          </div>
+          <div class="work-card reveal" data-project="2">
+            <div class="work-img-container">
+              <img
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80"
+                alt="Mireva Packaging"
+              />
+            </div>
+            <div class="work-meta">
+              <div>
+                <h3 class="work-title">Mireva</h3>
+                <p style="font-size: 14px; color: rgba(26, 26, 26, 0.6)">
+                  Luxury Packaging Systems
+                </p>
+              </div>
+              <span class="micro-label">2025</span>
+            </div>
+          </div>
+          <div class="work-card reveal" data-project="3">
+            <div class="work-img-container">
+              <img
+                src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=1000&q=80"
+                alt="CNCRT Structural Design"
+              />
+            </div>
+            <div class="work-meta">
+              <div>
+                <h3 class="work-title">CNCRT</h3>
+                <p style="font-size: 14px; color: rgba(26, 26, 26, 0.6)">
+                  Corporate Typography Architecture
+                </p>
+              </div>
+              <span class="micro-label">2024</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="modal" id="project-modal" role="dialog" aria-modal="true">
+      <button class="modal-close" id="close-modal-btn">CLOSE ×</button>
+      <div class="modal-content">
+        <img
+          src=""
+          alt="Main Case Showcase"
+          class="modal-hero-img"
+          id="modal-hero"
+        />
+        <div class="modal-layout">
+          <div>
+            <h2
+              class="editorial-title"
+              id="modal-title"
+              style="font-size: clamp(32px, 3.5vw, 54px); margin-bottom: 2rem"
+            ></h2>
+            <p
+              id="modal-desc"
+              style="font-size: 18px; color: rgba(26, 26, 26, 0.85)"
+            ></p>
+          </div>
+          <div class="modal-sidebar">
+            <div>
+              <span class="micro-label">Services</span>
+              <p
+                id="modal-services"
+                style="font-size: 14px; margin-top: 0.5rem"
+              ></p>
+            </div>
+            <div>
+              <span class="micro-label">Deliverables</span>
+              <p
+                id="modal-deliverables"
+                style="font-size: 14px; margin-top: 0.5rem"
+              ></p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-gallery" id="modal-gallery-wrapper"></div>
+      </div>
+    </div>
+
+    <section id="testimonials" style="background-color: var(--bg-primary)">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="micro-label">EVALUATIONS</span>
+          <h2 class="section-title">TESTIMONIALS</h2>
+          <p>
+            Client expressions on collaborative design processes and systems
+            validation.
+          </p>
+        </div>
+
+        <div class="testimonials-layout">
+          <div class="testimonials-grid" id="testimonials-container"></div>
+
+          <div class="submission-wrapper reveal">
+            <h3
+              class="editorial-title"
+              style="font-size: 28px; margin-bottom: 2rem"
+            >
+              Worked with me on a branding project? I'd love to hear about your
+              experience.
+            </h3>
+            <form action="https://formspree.io/f/xojzgrle" method="POST">
+              <input type="text" name="name" placeholder="Full Name" required />
+
+              <input type="text" name="company" placeholder="Company" />
+
+              <select name="rating">
+                <option value="5">5 Stars</option>
+                <option value="4">4 Stars</option>
+                <option value="3">3 Stars</option>
+              </select>
+
+              <textarea name="review" required></textarea>
+
+              <button type="submit">Submit Testimonial</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container contact-layout">
+        <div class="contact-info-panel reveal">
+          <div>
+            <span class="micro-label">ENGAGEMENT DIRECTORY</span>
+            <h2 class="contact-title">Let’s Create Something Meaningful.</h2>
+          </div>
+          <ul class="channels-list">
+            <li>
+              <span class="micro-label">Email</span>
+              <a href="mailto:hello@yourmail.com">hello@yourmail.com</a>
+            </li>
+            <li>
+              <span class="micro-label">Instagram</span>
+              <a href="https://instagram.com" target="_blank">@anasstas.iss</a>
+            </li>
+            <li>
+              <span class="micro-label">Behance</span>
+              <a href="https://behance.net" target="_blank"
+                >behance.net/anastasiia</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="contact-form-wrapper reveal">
+          <form id="contact-form" action="#" method="POST">
+            <div class="form-grid" style="grid-template-columns: 1fr">
+              <div class="form-group">
+                <label for="contact-name">Name *</label>
+                <input type="text" id="contact-name" required />
+              </div>
+              <div class="form-group">
+                <label for="contact-email">Email *</label>
+                <input type="email" id="contact-email" required />
+              </div>
+              <div class="form-group">
+                <label for="contact-msg">Message *</label>
+                <textarea id="contact-msg" rows="6" required></textarea>
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="btn-premium"
+              style="margin-top: 2rem; width: 100%; justify-content: center"
+            >
+              SEND INQUIRY
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-container">
+        <p>Anastasiia Pushkar © 2026</p>
+        <p style="font-family: var(--font-editorial); font-style: italic">
+          Designed with intention.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      /* --- BEHANCE CASE DATA REPOSITORY --- */
+      const projectDatabase = [
+        {
+          title: "The Inner Fuel",
+          desc: "A structural minimalist identity engineered for an premium organic supplement atelier. The configuration emphasizes raw geometry and subtle micro-typography to balance pharmaceutical clarity with luxury lifestyle aesthetics.",
+          services: "Brand Architecture, Typography Systems, Layout Standards",
+          deliverables:
+            "Identity Guidelines Manual, Custom Logotype Variable Glyphs, Tactile Container Packaging Assets",
+          hero: "https://images.unsplash.com/photo-1509395062183-67c5ad6faff9?auto=format&fit=crop&w=1200&q=80",
+          gallery: [
+            "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?auto=format&fit=crop&w=1000&q=80",
+            "https://images.unsplash.com/photo-1471864190281-a93a3070b6de?auto=format&fit=crop&w=1000&q=80",
+          ],
+        },
+        {
+          title: "Lumo",
+          desc: "A total overhaul of digital visibility frameworks for an avant-garde architectural collective. We introduced high-contrast layout rhythms and dynamic geometric containers mimicking concrete perspectives.",
+          services: "Web Experience Direction, Structural Identity Realization",
+          deliverables:
+            "Interactive Platform Blueprinting, Brand Strategy Book, Ephemeral Digital Assets",
+          hero: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+          gallery: [
+            "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1000&q=80",
+          ],
+        },
+        {
+          title: "Mireva",
+          desc: "Strategic identity production and spatial material curation for a high-end sustainable cosmetics maison. Using debossed textures and clean alignments to evoke a quiet feeling of natural indulgence.",
+          services: "Packaging Form Development, Color Systems Analytics",
+          deliverables:
+            "Unboxing Suite Layouts, Custom Color Book Definition, Foil Stamped Press Deliverables",
+          hero: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+          gallery: [
+            "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1000&q=80",
+          ],
+        },
+        {
+          title: "CNCRT",
+          desc: "An uncompromising structural visual grammar configured for an international luxury development foundation. Grounded in grid alignment precision and stark typographic scaling.",
+          services:
+            "Corporate Iconography Systems, Master Type Hierarchy Directing",
+          deliverables:
+            "Brand Manifesto Publication, Monumental Signage Systems, Stationery Matrix Systems",
+          hero: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=1200&q=80",
+          gallery: [
+            "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80",
+          ],
+        },
+      ];
+
+      /* --- IMMUTABLE SYSTEM INJECTIONS (SEED TESTIMONIALS) --- */
+      const defaultTestimonials = [
+        {
+          name: "Julian Sterling",
+          company: "The Inner Fuel Ltd",
+          rating: 5,
+          review:
+            "Anastasiia brought an unparalleled level of rigorous execution and critical thinking to our identity design. She didn't simply hand over a asset kit; she constructed a sustainable, living visual voice for our studio.",
+        },
+        {
+          name: "Marcell Rocha",
+          company: "CNCRT Dev",
+          rating: 5,
+          review:
+            "Her absolute mastery of structural grids and quiet luxury editorial design elevated our global campaign presentation materials to an award-winning tier. Elegant, timely, and deeply meticulous.",
+        },
+      ];
+
+      /* --- APPLICATION STARTUP MATRIX ROUTINES --- */
+      document.addEventListener("DOMContentLoaded", () => {
+        initHeaderDynamics();
+        initResponsiveMenu();
+        initScrollObserver();
+        initModalEngine();
+        initTestimonialEngine();
+        initContactForm();
+      });
+
+      /* --- NAVIGATION INTERACTION DYNAMICS --- */
+      function initHeaderDynamics() {
+        const header = document.getElementById("main-header");
+        window.addEventListener("scroll", () => {
+          if (window.scrollY > 50) {
+            header.classList.add("scrolled");
+          } else {
+            header.classList.remove("scrolled");
+          }
+        });
+      }
+
+      function initResponsiveMenu() {
+        const burger = document.querySelector(".burger");
+        const nav = document.querySelector(".nav-links");
+        const links = document.querySelectorAll(".nav-links li");
+
+        burger.addEventListener("click", () => {
+          nav.classList.toggle("nav-active");
+          burger.classList.toggle("toggle");
+
+          // Animate Link reveals gracefully
+          links.forEach((link, idx) => {
+            if (link.style.animation) {
+              link.style.animation = "";
+            } else {
+              link.style.animation = `fadeIn 0.4s ease forwards ${
+                idx / 7 + 0.2
+              }s`;
+            }
+          });
+        });
+
+        // Close responsive menu layer upon tracking a chosen navigational tag
+        document.querySelectorAll(".nav-links a").forEach((link) => {
+          link.addEventListener("click", () => {
+            nav.classList.remove("nav-active");
+            burger.classList.remove("toggle");
+            links.forEach((l) => (l.style.animation = ""));
+          });
+        });
+      }
+
+      /* --- INTERSECTION OBSERVER FOR SOPHISTICATED SCROLL REVEALS --- */
+      function initScrollObserver() {
+        const observerOptions = {
+          root: null,
+          threshold: 0.1,
+          rootMargin: "0px 0px -50px 0px",
+        };
+
+        const revealElements = document.querySelectorAll(".reveal");
+        const observer = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("active");
+              observer.unobserve(entry.target); // Trigger fade-in once
+            }
+          });
+        }, observerOptions);
+
+        revealElements.forEach((el) => observer.observe(el));
+      }
+
+      /* --- MODAL CASE STUDY PREVIEW MANAGER --- */
+      function initModalEngine() {
+        const modal = document.getElementById("project-modal");
+        const closeBtn = document.getElementById("close-modal-btn");
+        const cards = document.querySelectorAll(".work-card");
+
+        cards.forEach((card) => {
+          card.addEventListener("click", () => {
+            const idx = card.getAttribute("data-project");
+            const data = projectDatabase[idx];
+
+            // Map Content Matrix Into Dialog Targets
+            document.getElementById("modal-hero").src = data.hero;
+            document.getElementById("modal-title").innerText = data.title;
+            document.getElementById("modal-desc").innerText = data.desc;
+            document.getElementById("modal-services").innerText = data.services;
+            document.getElementById("modal-deliverables").innerText =
+              data.deliverables;
+
+            const galleryWrapper = document.getElementById(
+              "modal-gallery-wrapper"
+            );
+            galleryWrapper.innerHTML = ""; // Purge old image states
+            data.gallery.forEach((url) => {
+              const img = document.createElement("img");
+              img.src = url;
+              img.alt = `${data.title} Case Asset`;
+              galleryWrapper.appendChild(img);
+            });
+
+            modal.classList.add("active");
+            document.body.style.overflow = "hidden"; // Retain layout position context
+          });
+        });
+
+        const closeModal = () => {
+          modal.classList.remove("active");
+          document.body.style.overflow = "";
+        };
+
+        closeBtn.addEventListener("click", closeModal);
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) closeModal();
+        });
+        window.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && modal.classList.contains("active"))
+            closeModal();
+        });
+      }
+
+      /* --- LOCAL STORAGE DATA PERSISTENCE ENGINE --- */
+      function initTestimonialEngine() {
+        const container = document.getElementById("testimonials-container");
+        const form = document.getElementById("testimonial-form");
+
+        const loadTestimonials = () => {
+          container.innerHTML = "";
+          let dataPool = localStorage.getItem("studio_testimonials");
+
+          if (!dataPool) {
+            localStorage.setItem(
+              "studio_testimonials",
+              JSON.stringify(defaultTestimonials)
+            );
+            dataPool = JSON.stringify(defaultTestimonials);
+          }
+
+          const reviews = JSON.parse(dataPool);
+          reviews.forEach((item) => {
+            const starsString =
+              "★".repeat(item.rating) + "☆".repeat(5 - item.rating);
+            const compSection = item.company ? ` — ${item.company}` : "";
+
+            const el = document.createElement("div");
+            el.className = "testimonial-card";
+            el.innerHTML = `
+                        <p class="quote-text">“${item.review}”</p>
+                        <div class="client-info">
+                            <div>
+                                <h4 style="font-family: var(--font-sans); font-size:14px; font-weight:500;">${item.name}</h4>
+                                <span class="micro-label" style="font-size:10px; color:rgba(26,26,26,0.5);">${compSection}</span>
+                            </div>
+                            <span class="stars">${starsString}</span>
+                        </div>
+                    `;
+            container.appendChild(el);
+          });
+        };
+
+        form.addEventListener("submit", (e) => {
+          // e.preventDefault();
+        });
+
+        loadTestimonials();
+      }
+
+      /* --- CONTACT INQUIRY DISPATCH MOCK --- */
+      function initContactForm() {
+        const form = document.getElementById("contact-form");
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const btn = form.querySelector("button");
+          const originalText = btn.innerText;
+
+          btn.innerText = "TRANSMITTING INQUIRY...";
+          btn.style.pointerEvents = "none";
+
+          setTimeout(() => {
+            btn.innerText = "SUCCESSFULLY TRANSMITTED";
+            btn.style.backgroundColor = "var(--accent-burgundy)";
+            btn.style.color = "var(--bg-primary)";
+            form.reset();
+
+            setTimeout(() => {
+              btn.innerText = originalText;
+              btn.style.backgroundColor = "";
+              btn.style.color = "";
+              btn.style.pointerEvents = "all";
+            }, 3000);
+          }, 1500);
+        });
+      }
+    </script>
+  </body>
+</html>
